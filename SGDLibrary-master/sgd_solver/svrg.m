@@ -82,6 +82,7 @@ function [w, infos] = svrg(problem, options)
     
     if ~isfield(options, 'f_opt')
         f_opt = -Inf;
+        f_old =0;
     else
         f_opt = options.f_opt;
     end     
@@ -175,8 +176,15 @@ function [w, infos] = svrg(problem, options)
         % update epoch
         epoch = epoch + 1;
         % calculate optgap
-        f_val = problem.cost(w);
-        optgap = f_val - f_opt; 
+        if isfield(options, 'f_opt')
+            f_val = problem.cost(w);
+            optgap = f_val - f_opt; 
+        else
+            f_old = f_val;
+            f_val = problem.cost(w); 
+            optgap = abs( f_val - f_old);
+        end
+            
         % calculate norm of full gradient
         gnorm = norm(problem.full_grad(w));              
 

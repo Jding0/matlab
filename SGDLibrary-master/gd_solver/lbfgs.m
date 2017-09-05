@@ -76,6 +76,7 @@ function [w, infos] = lbfgs(problem, options)
     
     if ~isfield(options, 'f_opt')
         f_opt = -Inf;
+        f_old = 0;
     else
         f_opt = options.f_opt;
     end    
@@ -214,7 +215,14 @@ function [w, infos] = lbfgs(problem, options)
         iter = iter + 1;
         % calculate error
         f_val = problem.cost(w);
-        optgap = f_val - f_opt;  
+       if isfield(options, 'f_opt')
+            f_val = problem.cost(w);
+            optgap = f_val - f_opt; 
+        else
+            f_old = f_val;
+            f_val = problem.cost(w); 
+            optgap = abs( f_val - f_old);
+        end 
         % calculate norm of gradient
         gnorm = norm(grad);
         
