@@ -79,7 +79,7 @@
     options.batch_size = 10;
     options.batch_hess_size = 100;
     
-    [w_Parallel_slbfgs, info_Parallel_slbfgs] = Parallel_slbfgs(problem, options);
+    %[w_Parallel_slbfgs, info_Parallel_slbfgs] = Parallel_slbfgs(problem, options);
     
     
     %LBFGS/SQN
@@ -88,7 +88,7 @@
     [w_slbfgs, info_slbfgs] = slbfgs(problem, options); 
     %SVRG
     options.batch_size = 1;
-    [w_svrg, info_svrg] = svrg(problem, options);
+    %[w_svrg, info_svrg] = svrg(problem, options);
     
     %SGD
     
@@ -97,19 +97,19 @@
     options.batch_size = 10;
     options.batch_hess_size = 100;
     options.sub_mode = 'SVRG-LBFGS';
-    [w_Parallel_svrg_slbfgs, info_Parallel_svrg_slbfgs] = Parallel_slbfgs(problem, options);
+    %[w_Parallel_svrg_slbfgs, info_Parallel_svrg_slbfgs] = Parallel_slbfgs(problem, options);
     
     %SVRG-LBFGS/SQN
     options.thread_num = 1;
     options.batch_size = 10;
     options.batch_hess_size = 100;
     options.sub_mode = 'SVRG-LBFGS';
-    [w_svrg_slbfgs, info_svrg_slbfgs] = Parallel_slbfgs(problem, options);
+    %[w_svrg_slbfgs, info_svrg_slbfgs] = Parallel_slbfgs(problem, options);
     
     
     %Parallel SVRG
     options.batch_size = 10; %kind of MapReduce paralel for SGD
-    [w_Parallel_svrg, info_Parallel_svrg] = svrg(problem, options);
+    %[w_Parallel_svrg, info_Parallel_svrg] = svrg(problem, options);
     
 %     %LBFGS
     options.max_iter = 30;
